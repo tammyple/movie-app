@@ -16,7 +16,8 @@ import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import LoadingScreen from "../components/LoadingScreen";
 import { Alert } from "@mui/material";
-import MovieCard from "../components/MovieCard";
+import MovieCard from "../components/MovieDetailCard";
+import MovieDetailCard from "../components/MovieDetailCard";
 
 function DetailPage() {
   const [movieDetail, setMovieDetail] = useState(null);
@@ -66,7 +67,10 @@ function DetailPage() {
           ) : (
             <>
               {movieDetail && (
-                <MovieCard movieDetail={movieDetail} posterPath={posterPath} />
+                <MovieDetailCard
+                  movieDetail={movieDetail}
+                  posterPath={posterPath}
+                />
               )}
               {/* {!movie && (
                 <Typography variant="h6">404 Movie Not Found</Typography>

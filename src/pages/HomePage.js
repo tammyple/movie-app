@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import useAuth from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
-import MovieCard from "../components/MovieCard";
+import MovieCard from "../components/MovieDetailCard";
 import { MovieFilter } from "@mui/icons-material";
 import { Grid } from "@mui/material";
 import ImageList from "@mui/material/ImageList";
@@ -20,6 +20,7 @@ function HomePage() {
   const apiKey = `681565f353a3b4d3df92168a51105ce9`;
   const baseUrl = `https://api.themoviedb.org/3/`;
   const posterPath = `https://image.tmdb.org/t/p/original`;
+  const backdropPath = `https://image.tmdb.org/t/p/w500`;
 
   useEffect(() => {
     const fetchTrendingMovies = async () => {
@@ -67,14 +68,18 @@ function HomePage() {
                   minHeight: "100vh",
                 }}
               >
-                <Grid item direction="column" mt={1}>
+                <Grid item mt={1}>
                   <MovieTrendingList
                     trendingMovies={trendingMovies}
                     posterPath={posterPath}
                   />
                 </Grid>
                 <Grid item mt={5}>
-                  <GenreList baseUrl={baseUrl} apiKey={apiKey} />
+                  <GenreList
+                    baseUrl={baseUrl}
+                    apiKey={apiKey}
+                    posterPath={posterPath}
+                  />
                 </Grid>
               </Grid>
             </>

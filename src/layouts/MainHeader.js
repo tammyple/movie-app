@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import { styled, alpha } from "@mui/material/styles";
@@ -7,14 +7,16 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import InputBase from "@mui/material/InputBase";
-import SearchIcon from "@mui/icons-material/Search";
 import Button from "@mui/material/Button";
 import LoginIcon from "@mui/icons-material/Login";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { AuthContext } from "../contexts/AuthContext";
-import { Avatar } from "@mui/material";
+import { Avatar, FormControl } from "@mui/material";
+import InputBase from "@mui/material/InputBase";
+import SearchIcon from "@mui/icons-material/Search";
+import { TextField } from "@mui/material";
+import { FormProvider } from "react-hook-form";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -58,9 +60,45 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function MainHeader() {
+  const [searchMovies, setSearchMovies] = useState([]);
+  const [searchValue, setSearchValue] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const apiKey = `681565f353a3b4d3df92168a51105ce9`;
+  const baseUrl = `https://api.themoviedb.org/3/`;
+  const posterPath = `https://image.tmdb.org/t/p/original`;
+
   const auth = useAuth();
   let navigate = useNavigate();
 
+  useEffect(() => {
+    setLoading(true);
+    const fetchSearchMovies = async () => {
+      try {
+        const url = `${baseUrl}search/movie?api_key=${apiKey}&query=${searchValue}`;
+        const res = await fetch(url);
+        const data = await res.json();
+        if (res.ok) {
+          console.log(JSON.stringify(data));
+          setSearchMovies(data.results);
+          setErrorMessage("");
+        } else {
+          setErrorMessage(data.message);
+        }
+      } catch (error) {
+        console.log("error", error.message);
+      }
+      setLoading(false);
+    };
+    fetchSearchMovies();
+  }, [apiKey, baseUrl, searchValue]);
+  useEffect(() => console.log("searchMovies", searchMovies), [searchMovies]);
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   setSearchMovies(searchValue);
+  // };
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -77,47 +115,93 @@ export default function MainHeader() {
               backgroundColor: "transparent",
             }}
           />
-          <Typography
+          <Button
             onClick={() => {
               navigate("/");
             }}
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
             variant="h6"
             noWrap
             component="div"
-            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+            sx={{ display: { xs: "none", sm: "block" } }}
           >
             Home
-          </Typography>
+          </Button>
 
-          <Typography
+          <Button
             variant="h6"
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
             noWrap
             component="div"
-            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+            sx={{ display: { xs: "none", sm: "block" } }}
           >
             Movie
-          </Typography>
-          <Typography
+          </Button>
+          <Button
             variant="h6"
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
             noWrap
             component="div"
-            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+            sx={{ display: { xs: "none", sm: "block" } }}
           >
             TV Show
-          </Typography>
-          <Search sx={{ flexGrow: 1, ml: 1, maxWidth: "300px", width: "100%" }}>
+          </Button>
+          <FormProvider>
+            <TextField
+              id="search-bar"
+              className="text"
+              onInput={(e) => {
+                setSearchValue(e.target.value);
+              }}
+              label="Search..."
+              variant="outlined"
+              placeholder="Search..."
+              size="small"
+            />
+            <IconButton
+              type="submit"
+              onClick={() => navigate(`/search/${searchValue}`)}
+              aria-label="search"
+            >
+              <SearchIcon style={{ fill: "grey" }} />
+            </IconButton>
+          </FormProvider>
+          {/* <FormControl onSubmit={() => navigate(`/search/${searchValue}`)}> */}
+          {/* <Search
+            sx={{
+              flexGrow: 1,
+              ml: 1,
+              mr: 1,
+              maxWidth: "300px",
+              width: "100%",
+            }}
+          >
             <SearchIconWrapper>
-              <SearchIcon />
+              <Button
+                type="submit"
+                onClick={() => navigate(`/search/${searchValue}`)}
+              >
+                <SearchIcon />
+              </Button>
             </SearchIconWrapper>
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
+              onChange={(e) => setSearchValue(e.target.value)}
             />
-          </Search>
+          </Search> */}
+          {/* </FormControl> */}
           <Box edge="end" sx={{ flexGrow: 1 }} />
 
           <AccountCircleIcon />
-          <span>{auth.user?.username}</span>
+          <Typography>{auth.user?.username}</Typography>
+
           <Button
             variant="contained"
             type="submit"
