@@ -9,20 +9,18 @@ function MovieCard({ movie, posterPath }) {
   let location = useLocation();
   const navigate = useNavigate();
   return (
-    <Grid key={movie.id} item xs={6} sm={4} md={3}>
-      <Card sx={{ maxWidth: 345 }}>
-        <CardActionArea>
-          <CardMedia
-            component="img"
-            sx={{ height: "300px", width: "200px" }}
-            image={`${posterPath}${movie.poster_path}`}
-            alt={movie.original_title}
-            onClick={() => navigate(`/movie/${movie.id}`)}
-            state={{ backgroundLocation: location }}
-          />
-        </CardActionArea>
-      </Card>
-    </Grid>
+    <Card sx={{ maxWidth: 345 }}>
+      <CardActionArea>
+        <CardMedia
+          component="img"
+          sx={{ height: "300px", width: "200px" }}
+          image={`${posterPath}${movie.poster_path}`}
+          alt={movie.original_title}
+          onClick={() => navigate(`/movie/${movie.id}`)}
+          state={{ backgroundLocation: location }}
+        />
+      </CardActionArea>
+    </Card>
   );
 }
 

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Grid } from "@mui/material";
 import GenreList from "../components/GenreList";
-import { Typography } from "@mui/material";
 import MovieList from "../components/MovieList";
+import { Typography } from "@mui/material";
 
-function HomePage() {
-  const [trendingMovies, setTrendingMovies] = useState([]);
+function TvPage() {
+  const [discoverTv, setDiscoverTv] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -14,16 +14,15 @@ function HomePage() {
   const posterPath = `https://image.tmdb.org/t/p/original`;
 
   useEffect(() => {
-    const fetchTrendingMovies = async () => {
+    const fetchDiscoverTv = async () => {
       setLoading(true);
       try {
-        const url = `${baseUrl}/trending/all/day?api_key=${apiKey}`;
+        const url = `${baseUrl}/discover/tv?api_key=${apiKey}`;
         const res = await fetch(url);
-        // const res = await fetch(url);
         const data = await res.json();
         if (res.ok) {
           console.log(JSON.stringify(data));
-          setTrendingMovies(data.results);
+          setDiscoverTv(data.results);
 
           setErrorMessage("");
         } else {
@@ -34,12 +33,9 @@ function HomePage() {
       }
       setLoading(false);
     };
-    fetchTrendingMovies();
+    fetchDiscoverTv();
   }, [apiKey, baseUrl]); //detect when baseUrl & apiKey changes
-  // useEffect(
-  //   () => console.log("trending movies", trendingMovies),
-  //   [trendingMovies]
-  // ); // clg movies when movies changed
+  useEffect(() => console.log("trending tvs", discoverTv), [discoverTv]); // clg movies when movies changed
 
   return (
     <div>
@@ -61,11 +57,11 @@ function HomePage() {
                   mr: 2,
                 }}
               >
+                <Typography variant="h5" my={3}>
+                  DISCOVER TV SHOWS
+                </Typography>
                 <Grid item mt={1}>
-                  <Typography variant="h5" my={3}>
-                    TRENDING NOW
-                  </Typography>
-                  <MovieList movies={trendingMovies} posterPath={posterPath} />
+                  <MovieList movies={discoverTv} posterPath={posterPath} />
                 </Grid>
                 <Grid item mt={5}>
                   <GenreList
@@ -83,4 +79,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default TvPage;

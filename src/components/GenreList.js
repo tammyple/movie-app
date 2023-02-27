@@ -112,11 +112,12 @@ function GenreList({ baseUrl, apiKey, posterPath, backdropPath }) {
   useEffect(() => console.log("movieList", movieList), [movieList]);
 
   return (
-    <Box sx={{ width: "100%" }}>
-      <Typography variant="h5">DISCOVER MOVIES</Typography>
+    <Box sx={{ width: "90%" }}>
+      <Typography variant="h5">MOVIES BY GENRE</Typography>
       <Stack
         minWidth="80%"
-        flexDirection={{ md: "row" }}
+        display="flex"
+        flexDirection="row"
         sx={{
           borderRadius: "10px",
           justifyContent: "space-between",
@@ -133,9 +134,11 @@ function GenreList({ baseUrl, apiKey, posterPath, backdropPath }) {
             </BootstrapButton>
           ))}
         </Stack>
-        <Grid container direction="row" spacing={3} mt={3} ml={3}>
+        <Grid container direction="row" spacing={2} mt={3} ml={3}>
           {movieList.map((movie) => (
-            <MovieCard movie={movie} posterPath={posterPath} />
+            <Grid key={movie.id} item xs={10} sm={6} md={4} lg={3}>
+              <MovieCard movie={movie} posterPath={posterPath} />
+            </Grid>
           ))}
         </Grid>
       </Stack>

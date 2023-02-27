@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import MovieCard from "../components/MovieCard";
-import { Typography, Divider, Grid } from "@mui/material";
+import { Typography, Grid } from "@mui/material";
 
 function SearchPage() {
   const [searchMovies, setSearchMovies] = useState([]);
@@ -45,10 +44,11 @@ function SearchPage() {
       <Typography variant="h5" mb={2} mt={3}>
         MOVIES SEARCH QUERY: "{query}"
       </Typography>
-      <Divider />
       <Grid container direction="row" mt={3} spacing={3}>
         {searchMovies.map((movie) => (
-          <MovieCard key={movie.id} movie={movie} posterPath={posterPath} />
+          <Grid item xs={10} sm={6} md={4} lg={3}>
+            <MovieCard key={movie.id} movie={movie} posterPath={posterPath} />
+          </Grid>
         ))}
       </Grid>
     </div>

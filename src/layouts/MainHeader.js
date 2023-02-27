@@ -95,10 +95,6 @@ export default function MainHeader() {
   }, [apiKey, baseUrl, searchValue]);
   useEffect(() => console.log("searchMovies", searchMovies), [searchMovies]);
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   setSearchMovies(searchValue);
-  // };
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -138,6 +134,7 @@ export default function MainHeader() {
             noWrap
             component="div"
             sx={{ display: { xs: "none", sm: "block" } }}
+            onClick={() => navigate(`/discover/movies`)}
           >
             Movie
           </Button>
@@ -149,6 +146,7 @@ export default function MainHeader() {
             noWrap
             component="div"
             sx={{ display: { xs: "none", sm: "block" } }}
+            onClick={() => navigate(`/discover/tv`)}
           >
             TV Show
           </Button>
@@ -159,7 +157,7 @@ export default function MainHeader() {
               onInput={(e) => {
                 setSearchValue(e.target.value);
               }}
-              label="Search..."
+              // label="Search..."
               variant="outlined"
               placeholder="Search..."
               size="small"
@@ -172,31 +170,6 @@ export default function MainHeader() {
               <SearchIcon style={{ fill: "grey" }} />
             </IconButton>
           </FormProvider>
-          {/* <FormControl onSubmit={() => navigate(`/search/${searchValue}`)}> */}
-          {/* <Search
-            sx={{
-              flexGrow: 1,
-              ml: 1,
-              mr: 1,
-              maxWidth: "300px",
-              width: "100%",
-            }}
-          >
-            <SearchIconWrapper>
-              <Button
-                type="submit"
-                onClick={() => navigate(`/search/${searchValue}`)}
-              >
-                <SearchIcon />
-              </Button>
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
-              onChange={(e) => setSearchValue(e.target.value)}
-            />
-          </Search> */}
-          {/* </FormControl> */}
           <Box edge="end" sx={{ flexGrow: 1 }} />
 
           <AccountCircleIcon />

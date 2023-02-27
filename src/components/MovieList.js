@@ -8,19 +8,14 @@ import { CardActionArea } from "@mui/material";
 import { Grid, Stack, Divider } from "@mui/material";
 import MovieCard from "./MovieCard";
 
-export default function MovieTrendingList({ trendingMovies, posterPath }) {
-  let location = useLocation();
-  const navigate = useNavigate();
-
+export default function MovieList({ movies, posterPath }) {
   return (
     <>
-      <Typography variant="h5" my={3}>
-        TRENDING NOW
-      </Typography>
-
       <Grid container direction="row" mt={3} spacing={3}>
-        {trendingMovies.map((movie) => (
-          <MovieCard key={movie.id} movie={movie} posterPath={posterPath} />
+        {movies.map((movie) => (
+          <Grid key={movie.id} item xs={6} sm={4} md={3}>
+            <MovieCard key={movie.id} movie={movie} posterPath={posterPath} />
+          </Grid>
         ))}
       </Grid>
     </>
