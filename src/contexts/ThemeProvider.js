@@ -3,7 +3,7 @@ import {
   createTheme,
   ThemeProvider as MUIThemeProvider,
 } from "@mui/material/styles";
-import { deepOrange, grey } from "@mui/material/colors";
+import { grey, red } from "@mui/material/colors";
 
 const darkTheme = createTheme({
   palette: {
@@ -11,7 +11,7 @@ const darkTheme = createTheme({
     primary: {
       main: grey[500],
     },
-    divider: deepOrange[700],
+    divider: red,
     background: {
       default: "#121212",
       paper: "#121212",

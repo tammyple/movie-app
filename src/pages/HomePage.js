@@ -20,7 +20,6 @@ function HomePage() {
       try {
         const url = `${baseUrl}/trending/all/day?api_key=${apiKey}`;
         const res = await fetch(url);
-        // const res = await fetch(url);
         const data = await res.json();
         if (res.ok) {
           console.log(JSON.stringify(data));
@@ -44,72 +43,72 @@ function HomePage() {
 
   return (
     <>
-      {loading ? (
-        <LoadingScreen />
-      ) : (
-        <>
-          {errorMessage ? (
-            <div style={{ color: "red" }}>{errorMessage}</div>
-          ) : (
-            <>
-              <main
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  minHeight: "100vh",
-                  width: "100%",
-                }}
-              >
-                <Grid
-                  container
-                  sx={{
-                    display: "flex",
-                    direction: "column",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    minHeight: "100vh",
-                    width: "90%",
-                    ml: 2,
-                    mr: 2,
-                  }}
-                >
-                  <Grid
-                    item
-                    sx={{
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: { xs: "flex-start", md: "center" },
-                      alignItems: "center",
-                      minHeight: "100vh",
-                      width: "100%",
-                      ml: 2,
-                      mr: 2,
-                      mt: 1,
-                    }}
-                  >
-                    <Typography variant="h5" my={3}>
-                      TRENDING NOW
-                    </Typography>
+      <main
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "100vh",
+          width: "100%",
+        }}
+      >
+        <Grid
+          container
+          sx={{
+            display: "flex",
+            direction: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            minHeight: "100vh",
+            width: "90%",
+            ml: 2,
+            mr: 2,
+          }}
+        >
+          <Grid
+            item
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: { xs: "flex-start", md: "center" },
+              alignItems: "center",
+              minHeight: "100vh",
+              width: "100%",
+              ml: 2,
+              mr: 2,
+              mt: 1,
+            }}
+          >
+            <Typography variant="h5" my={3}>
+              TRENDING NOW
+            </Typography>
+            {loading ? (
+              <LoadingScreen />
+            ) : (
+              <>
+                {errorMessage ? (
+                  <div style={{ color: "red" }}>{errorMessage}</div>
+                ) : (
+                  <>
                     <MovieList
                       movies={trendingMovies}
                       posterPath={posterPath}
                     />
-                  </Grid>
-                  <Grid item mt={5}>
-                    <GenreList
-                      baseUrl={baseUrl}
-                      apiKey={apiKey}
-                      posterPath={posterPath}
-                    />
-                  </Grid>
-                </Grid>
-              </main>
-            </>
-          )}
-        </>
-      )}
+                  </>
+                )}
+              </>
+            )}
+          </Grid>
+          <Grid item mt={5}>
+            <GenreList
+              baseUrl={baseUrl}
+              apiKey={apiKey}
+              posterPath={posterPath}
+            />
+          </Grid>
+        </Grid>
+      </main>
     </>
   );
 }

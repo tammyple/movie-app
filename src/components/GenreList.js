@@ -96,7 +96,7 @@ function GenreList({ baseUrl, apiKey, posterPath, backdropPath }) {
   useEffect(() => console.log("movieList", movieList), [movieList]);
 
   return (
-    <Box sx={{ width: "100%" }}>
+    <Box sx={{ width: "100vw", pl: 5, pr: 5 }}>
       <Box
         sx={{
           borderRadius: "10px",
@@ -109,33 +109,33 @@ function GenreList({ baseUrl, apiKey, posterPath, backdropPath }) {
       >
         <Typography variant="h5">MOVIES BY GENRE</Typography>
       </Box>
-      {loading ? (
-        <LoadingScreen />
-      ) : (
-        <>
-          {errorMessage ? (
-            <div style={{ color: "red" }}>{errorMessage}</div>
-          ) : (
-            <Stack
-              sx={{
-                borderRadius: "10px",
-                justifyContent: "space-between",
-                alignItems: "start",
-                minWidth: "100%",
-                display: "flex",
-                flexDirection: "row",
-              }}
+      <Stack
+        sx={{
+          borderRadius: "10px",
+          justifyContent: "space-between",
+          alignItems: "start",
+          minWidth: "100%",
+          display: "flex",
+          flexDirection: "row",
+        }}
+      >
+        <Stack sx={{ width: "120px", ml: 1 }} spacing={2} mt={3}>
+          {genreList.map((genre) => (
+            <BootstrapButton
+              onClick={() => setGenreId(genre.id)}
+              key={genre.id}
             >
-              <Stack sx={{ width: "20%" }} spacing={2} mt={3}>
-                {genreList.map((genre) => (
-                  <BootstrapButton
-                    onClick={() => setGenreId(genre.id)}
-                    key={genre.id}
-                  >
-                    {genre.name}
-                  </BootstrapButton>
-                ))}
-              </Stack>
+              {genre.name}
+            </BootstrapButton>
+          ))}
+        </Stack>
+        {loading ? (
+          <LoadingScreen />
+        ) : (
+          <>
+            {errorMessage ? (
+              <div style={{ color: "red" }}>{errorMessage}</div>
+            ) : (
               <Grid container direction="row" spacing={2} mt={3} ml={3}>
                 {movieList.map((movie) => (
                   <Grid key={movie.id} item xs={10} sm={6} md={4} lg={3}>
@@ -143,10 +143,10 @@ function GenreList({ baseUrl, apiKey, posterPath, backdropPath }) {
                   </Grid>
                 ))}
               </Grid>
-            </Stack>
-          )}
-        </>
-      )}
+            )}
+          </>
+        )}
+      </Stack>
     </Box>
   );
 }
