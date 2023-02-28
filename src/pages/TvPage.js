@@ -45,52 +45,52 @@ function TvPage() {
 
   return (
     <div>
-      {loading ? (
-        <LoadingScreen />
-      ) : (
-        <>
-          {errorMessage ? (
-            <div style={{ color: "red" }}>{errorMessage}</div>
+      <main
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "100vh",
+          width: "100%",
+        }}
+      >
+        <Grid
+          container
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            minHeight: "100vh",
+            width: "90%",
+            ml: 2,
+            mr: 2,
+          }}
+        >
+          <Typography variant="h5" my={3}>
+            DISCOVER TV SHOWS
+          </Typography>
+          {loading ? (
+            <LoadingScreen />
           ) : (
             <>
-              <main
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  minHeight: "100vh",
-                  width: "100%",
-                }}
-              >
-                <Grid
-                  container
-                  sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    minHeight: "100vh",
-                    width: "90%",
-                    ml: 2,
-                    mr: 2,
-                  }}
-                >
-                  <Typography variant="h5" my={3}>
-                    DISCOVER TV SHOWS
-                  </Typography>
+              {errorMessage ? (
+                <div style={{ color: "red" }}>{errorMessage}</div>
+              ) : (
+                <>
                   <Grid item mt={1}>
                     <MovieList movies={discoverTv} posterPath={posterPath} />
                   </Grid>
-                  <Stack spacing={2}>
-                    <PaginationButtons pageTitle={pageTitle} />
-                  </Stack>
-                </Grid>
-              </main>
+                </>
+              )}
             </>
           )}
-        </>
-      )}
+          <Stack spacing={2}>
+            <PaginationButtons pageTitle={pageTitle} />
+          </Stack>
+        </Grid>
+      </main>
     </div>
   );
 }
