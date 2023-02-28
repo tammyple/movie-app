@@ -15,6 +15,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { TextField } from "@mui/material";
 import { FormProvider } from "react-hook-form";
 import LoadingScreen from "../components/LoadingScreen";
+import LiveTvIcon from "@mui/icons-material/LiveTv";
 
 export default function MainHeader() {
   const [searchMovies, setSearchMovies] = useState([]);
@@ -62,12 +63,7 @@ export default function MainHeader() {
           ) : (
             <AppBar position="static">
               <Toolbar>
-                <Avatar
-                  variant={"rounded"}
-                  alt="The image"
-                  src={
-                    "https://assets.stickpng.com/images/580b57fcd9996e24bc43c529.png"
-                  }
+                <LiveTvIcon
                   sx={{
                     width: "100px",
                     height: "30px",
