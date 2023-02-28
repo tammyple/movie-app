@@ -3,7 +3,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import { CardActionArea } from "@mui/material";
-import { Grid } from "@mui/material";
 
 function MovieCard({ movie, posterPath }) {
   let location = useLocation();
