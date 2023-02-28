@@ -5,6 +5,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { Grid, Button } from "@mui/material";
 import MovieCard from "./MovieCard";
+import LoadingScreen from "./LoadingScreen";
 
 const BootstrapButton = styled(Button)({
   boxShadow: "none",
@@ -96,9 +97,20 @@ function GenreList({ baseUrl, apiKey, posterPath, backdropPath }) {
 
   return (
     <Box sx={{ width: "100%" }}>
-      <Typography variant="h5">MOVIES BY GENRE</Typography>
+      <Box
+        sx={{
+          borderRadius: "10px",
+          justifyContent: "center",
+          alignItems: "center",
+          minWidth: "100%",
+          display: "flex",
+          flexDirection: "row",
+        }}
+      >
+        <Typography variant="h5">MOVIES BY GENRE</Typography>
+      </Box>
       {loading ? (
-        <div>Loading...</div>
+        <LoadingScreen />
       ) : (
         <>
           {errorMessage ? (
