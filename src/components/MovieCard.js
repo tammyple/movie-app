@@ -12,7 +12,6 @@ function MovieCard({ movie, posterPath }) {
       <CardActionArea>
         <CardMedia
           component="img"
-          sx={{ height: "300px", width: "200px" }}
           image={`${posterPath}${movie.poster_path}`}
           alt={movie.original_title}
           onClick={() => navigate(`/movie/${movie.id}`)}

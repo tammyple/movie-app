@@ -23,8 +23,8 @@ function Router() {
         }
       >
         <Route index element={<HomePage />} />
-        <Route path="discover/movies" element={<MoviePage />} />
-        <Route path="discover/tv" element={<TvPage />} />
+        <Route path="discover/movies/:pageId" element={<MoviePage />} />
+        <Route path="discover/tv/:pageId" element={<TvPage />} />
         <Route path="movie/:id" element={<DetailPage />} />
         <Route path="search/:query" element={<SearchPage />} />
       </Route>

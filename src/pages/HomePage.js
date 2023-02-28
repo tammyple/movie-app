@@ -3,6 +3,7 @@ import { Grid } from "@mui/material";
 import GenreList from "../components/GenreList";
 import { Typography } from "@mui/material";
 import MovieList from "../components/MovieList";
+import LoadingScreen from "../components/LoadingScreen";
 
 function HomePage() {
   const [trendingMovies, setTrendingMovies] = useState([]);
@@ -42,44 +43,74 @@ function HomePage() {
   // ); // clg movies when movies changed
 
   return (
-    <div>
+    <>
       {loading ? (
-        <div>Loading...</div>
+        <LoadingScreen />
       ) : (
         <>
           {errorMessage ? (
             <div style={{ color: "red" }}>{errorMessage}</div>
           ) : (
             <>
-              <Grid
-                container
-                direction="column"
-                justifyContent={{ md: "center", xs: "flex-end" }}
-                sx={{
+              <main
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
                   minHeight: "100vh",
-                  ml: 2,
-                  mr: 2,
+                  width: "100%",
                 }}
               >
-                <Grid item mt={1}>
-                  <Typography variant="h5" my={3}>
-                    TRENDING NOW
-                  </Typography>
-                  <MovieList movies={trendingMovies} posterPath={posterPath} />
+                <Grid
+                  container
+                  sx={{
+                    display: "flex",
+                    direction: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    minHeight: "100vh",
+                    width: "90%",
+                    ml: 2,
+                    mr: 2,
+                  }}
+                >
+                  <Grid
+                    item
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: { xs: "flex-start", md: "center" },
+                      alignItems: "center",
+                      minHeight: "100vh",
+                      width: "100%",
+                      ml: 2,
+                      mr: 2,
+                      mt: 1,
+                    }}
+                  >
+                    <Typography variant="h5" my={3}>
+                      TRENDING NOW
+                    </Typography>
+                    <MovieList
+                      movies={trendingMovies}
+                      posterPath={posterPath}
+                    />
+                  </Grid>
+                  <Grid item mt={5}>
+                    <GenreList
+                      baseUrl={baseUrl}
+                      apiKey={apiKey}
+                      posterPath={posterPath}
+                    />
+                  </Grid>
                 </Grid>
-                <Grid item mt={5}>
-                  <GenreList
-                    baseUrl={baseUrl}
-                    apiKey={apiKey}
-                    posterPath={posterPath}
-                  />
-                </Grid>
-              </Grid>
+              </main>
             </>
           )}
         </>
       )}
-    </div>
+    </>
   );
 }
 

@@ -32,7 +32,7 @@ export default function MovieDetailCard({ movieDetail }) {
               pl={{ xs: 0, md: 1 }}
               minHeight="100%"
               minWidth="400px"
-              justifyContent="space-between"
+              sx={{ justifyContent: "space-between" }}
             >
               <Typography gutterBottom variant="h5" component="div">
                 {movieDetail.title}

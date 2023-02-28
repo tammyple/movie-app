@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Stack from "@mui/material/Stack";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import { useLocation, useNavigate } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import { Grid, Button } from "@mui/material";
 import MovieCard from "./MovieCard";
@@ -50,9 +49,6 @@ function GenreList({ baseUrl, apiKey, posterPath, backdropPath }) {
   const [genreId, setGenreId] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  let location = useLocation();
-  const navigate = useNavigate();
-
   useEffect(() => {
     const fetchGenreList = async () => {
       setLoading(true);
@@ -99,36 +95,46 @@ function GenreList({ baseUrl, apiKey, posterPath, backdropPath }) {
   useEffect(() => console.log("movieList", movieList), [movieList]);
 
   return (
-    <Box sx={{ width: "90%" }}>
+    <Box sx={{ width: "100%" }}>
       <Typography variant="h5">MOVIES BY GENRE</Typography>
-      <Stack
-        minWidth="80%"
-        display="flex"
-        flexDirection="row"
-        sx={{
-          borderRadius: "10px",
-          justifyContent: "space-between",
-          alignItems: "start",
-        }}
-      >
-        <Stack sx={{ width: "20%" }} spacing={2} mt={3}>
-          {genreList.map((genre) => (
-            <BootstrapButton
-              onClick={() => setGenreId(genre.id)}
-              key={genre.id}
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
+        <>
+          {errorMessage ? (
+            <div style={{ color: "red" }}>{errorMessage}</div>
+          ) : (
+            <Stack
+              sx={{
+                borderRadius: "10px",
+                justifyContent: "space-between",
+                alignItems: "start",
+                minWidth: "100%",
+                display: "flex",
+                flexDirection: "row",
+              }}
             >
-              {genre.name}
-            </BootstrapButton>
-          ))}
-        </Stack>
-        <Grid container direction="row" spacing={2} mt={3} ml={3}>
-          {movieList.map((movie) => (
-            <Grid key={movie.id} item xs={10} sm={6} md={4} lg={3}>
-              <MovieCard movie={movie} posterPath={posterPath} />
-            </Grid>
-          ))}
-        </Grid>
-      </Stack>
+              <Stack sx={{ width: "20%" }} spacing={2} mt={3}>
+                {genreList.map((genre) => (
+                  <BootstrapButton
+                    onClick={() => setGenreId(genre.id)}
+                    key={genre.id}
+                  >
+                    {genre.name}
+                  </BootstrapButton>
+                ))}
+              </Stack>
+              <Grid container direction="row" spacing={2} mt={3} ml={3}>
+                {movieList.map((movie) => (
+                  <Grid key={movie.id} item xs={10} sm={6} md={4} lg={3}>
+                    <MovieCard movie={movie} posterPath={posterPath} />
+                  </Grid>
+                ))}
+              </Grid>
+            </Stack>
+          )}
+        </>
+      )}
     </Box>
   );
 }
