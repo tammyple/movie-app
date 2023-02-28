@@ -10,7 +10,6 @@ import Button from "@mui/material/Button";
 import LoginIcon from "@mui/icons-material/Login";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { Avatar } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { TextField } from "@mui/material";
 import { FormProvider } from "react-hook-form";
