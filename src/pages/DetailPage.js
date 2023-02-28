@@ -1,22 +1,7 @@
 import { useEffect, useState } from "react";
-import {
-  Card,
-  Grid,
-  Container,
-  Typography,
-  Box,
-  Stack,
-  Rating,
-  Divider,
-  Breadcrumbs,
-  Link,
-} from "@mui/material";
-import { Link as RouterLink, useParams } from "react-router-dom";
-import ReactMarkdown from "react-markdown";
-import rehypeRaw from "rehype-raw";
+import { useParams } from "react-router-dom";
 import LoadingScreen from "../components/LoadingScreen";
 import { Alert } from "@mui/material";
-import MovieCard from "../components/MovieDetailCard";
 import MovieDetailCard from "../components/MovieDetailCard";
 
 function DetailPage() {

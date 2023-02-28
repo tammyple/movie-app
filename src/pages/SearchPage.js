@@ -44,13 +44,27 @@ function SearchPage() {
       <Typography variant="h5" mb={2} mt={3}>
         MOVIES SEARCH QUERY: "{query}"
       </Typography>
-      <Grid container direction="row" mt={3} spacing={3}>
-        {searchMovies.map((movie) => (
-          <Grid item xs={10} sm={6} md={4} lg={3}>
-            <MovieCard key={movie.id} movie={movie} posterPath={posterPath} />
-          </Grid>
-        ))}
-      </Grid>
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
+        <>
+          {errorMessage ? (
+            <div style={{ color: "red" }}>{errorMessage}</div>
+          ) : (
+            <Grid container direction="row" mt={3} spacing={3}>
+              {searchMovies.map((movie) => (
+                <Grid item xs={10} sm={6} md={4} lg={3}>
+                  <MovieCard
+                    key={movie.id}
+                    movie={movie}
+                    posterPath={posterPath}
+                  />
+                </Grid>
+              ))}
+            </Grid>
+          )}
+        </>
+      )}
     </div>
   );
 }
