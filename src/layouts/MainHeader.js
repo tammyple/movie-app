@@ -79,7 +79,7 @@ export default function MainHeader() {
             sx={{ wrap: "noWrap", display: { xs: "none", sm: "block" } }}
             onClick={() => navigate(`/discover/movies/1`)}
           >
-            Movie
+            Movies
           </Button>
           <Button
             variant="h6"
@@ -112,7 +112,6 @@ export default function MainHeader() {
                   <div style={{ color: "red" }}>{errorMessage}</div>
                 ) : (
                   <IconButton
-                    // type="submit"
                     onClick={() => navigate(`/search/${searchValue}`)}
                     aria-label="search"
                   >
