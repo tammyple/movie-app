@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import MovieCard from "../components/MovieCard";
 import { Typography, Grid } from "@mui/material";
+import LoadingScreen from "../components/LoadingScreen";
 
 function SearchPage() {
   const [searchMovies, setSearchMovies] = useState([]);
-  const [searchValue, setSearchValue] = useState("");
+  // const [searchValue, setSearchValue] = useState("");
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -35,7 +36,7 @@ function SearchPage() {
       setLoading(false);
     };
     fetchSearchMovies();
-  }, [apiKey, baseUrl, query, searchValue]);
+  }, [apiKey, baseUrl, query]);
   useEffect(() => console.log("searchMovies", searchMovies), [searchMovies]);
   console.log("searchMovies", searchMovies);
   return (
@@ -45,7 +46,7 @@ function SearchPage() {
         MOVIES SEARCH QUERY: "{query}"
       </Typography>
       {loading ? (
-        <div>Loading...</div>
+        <LoadingScreen />
       ) : (
         <>
           {errorMessage ? (

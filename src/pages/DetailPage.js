@@ -13,7 +13,6 @@ function DetailPage() {
   const apiKey = `681565f353a3b4d3df92168a51105ce9`;
   const baseUrl = `https://api.themoviedb.org/3/`;
   const posterPath = `https://image.tmdb.org/t/p/original`;
-  const backdropPath = `https://image.tmdb.org/t/p/w500`;
 
   useEffect(() => {
     const fetchMovieDetail = async () => {
