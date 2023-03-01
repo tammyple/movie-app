@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Grid } from "@mui/material";
 import GenreList from "../components/GenreList";
 import { Typography } from "@mui/material";
-import MovieList from "../components/MovieList";
 import LoadingScreen from "../components/LoadingScreen";
 import MovieTrendingList from "../components/MovieTrendingList";
 
@@ -61,7 +60,6 @@ function HomePage() {
             direction: "column",
             justifyContent: "center",
             alignItems: "center",
-            minHeight: "100vh",
             width: "90%",
             ml: 2,
             mr: 2,
@@ -74,7 +72,6 @@ function HomePage() {
               flexDirection: "column",
               justifyContent: { xs: "flex-start", md: "center" },
               alignItems: "center",
-              minHeight: "100vh",
               width: "100%",
               ml: 2,
               mr: 2,

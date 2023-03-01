@@ -8,7 +8,6 @@ export default function MovieList({ movies, posterPath }) {
   return (
     <>
       <div style={{ width: "100%", pr: 1, pl: 1 }}>
-        {/* <Grid container direction="row" mt={3} spacing={3}> */}
         <Carousel show={4} infiniteLoop withIndicator>
           {movies.map((movie) => (
             <Grid key={movie.id} item xs={6} sm={4} md={3}>
@@ -16,7 +15,6 @@ export default function MovieList({ movies, posterPath }) {
             </Grid>
           ))}
         </Carousel>
-        {/* </Grid> */}
       </div>
     </>
   );

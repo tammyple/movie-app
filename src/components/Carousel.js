@@ -1,4 +1,4 @@
-import React, { useState, Children } from "react";
+import React, { useState, useEffect, Children } from "react";
 import { useMemo, useRef } from "react";
 
 const Carousel = ({
@@ -30,7 +30,7 @@ const Carousel = ({
   /**
    * Is the carousel repeating it's item
    */
-  const isRepeating = React.useMemo(
+  const isRepeating = useMemo(
     () => infiniteLoop && Children.count(children) > show,
     [children, infiniteLoop, show]
   );
@@ -54,7 +54,7 @@ const Carousel = ({
    * Handle if the carousel is repeating
    * and the currentIndex have been set to the last or first item
    */
-  React.useEffect(() => {
+  useEffect(() => {
     if (isRepeating) {
       if (currentIndex === show || currentIndex === length) {
         setTransitionEnabled(true);
@@ -62,7 +62,7 @@ const Carousel = ({
     }
   }, [currentIndex, isRepeating, show, length]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (withIndicator) {
       const active =
         indicatorContainerRef.current?.querySelector(".dots-active");
@@ -83,7 +83,7 @@ const Carousel = ({
    */
   const nextItem = () => {
     if (isRepeating || currentIndex < length - show) {
-      setCurrentIndex((prevState) => prevState + 1);
+      setCurrentIndex((prevState) => prevState + 4);
     }
   };
 
@@ -92,7 +92,7 @@ const Carousel = ({
    */
   const previousItem = () => {
     if (isRepeating || currentIndex > 0) {
-      setCurrentIndex((prevState) => prevState - 1);
+      setCurrentIndex((prevState) => prevState - 4);
     }
   };
 
@@ -157,7 +157,7 @@ const Carousel = ({
   /**
    * Render previous items before the first item
    */
-  const extraPreviousItems = React.useMemo(() => {
+  const extraPreviousItems = useMemo(() => {
     let output = [];
     for (let index = 0; index < show; index++) {
       output.push(Children.toArray(children)[length - 1 - index]);
@@ -169,7 +169,7 @@ const Carousel = ({
   /**
    * Render next items after the last item
    */
-  const extraNextItems = React.useMemo(() => {
+  const extraNextItems = useMemo(() => {
     let output = [];
     for (let index = 0; index < show; index++) {
       output.push(Children.toArray(children)[index]);
@@ -177,7 +177,7 @@ const Carousel = ({
     return output;
   }, [children, show]);
 
-  const renderDots = React.useMemo(() => {
+  const renderDots = useMemo(() => {
     let output = [];
 
     const localShow = isRepeating ? show : 0;
