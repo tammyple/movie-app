@@ -6,6 +6,7 @@ import MovieDetailCard from "../components/MovieDetailCard";
 
 function DetailPage() {
   const [movieDetail, setMovieDetail] = useState(null);
+  const [similarMovies, setSimilarMovies] = useState(null);
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
   const params = useParams();
@@ -40,6 +41,32 @@ function DetailPage() {
   }, [params.id, apiKey, baseUrl]);
   useEffect(() => console.log("movieDetail", movieDetail), [movieDetail]);
 
+  useEffect(() => {
+    const fetchSimilarMovies = async () => {
+      if (params.id) {
+        setLoading(true);
+        try {
+          const url = `${baseUrl}movie/${params.id}/similar?api_key=${apiKey}`;
+          const res = await fetch(url);
+          const data = await res.json();
+          if (res.ok) {
+            console.log(JSON.stringify(data));
+            setSimilarMovies(data.results);
+
+            setErrorMessage("");
+          } else {
+            setErrorMessage(data.message);
+          }
+        } catch (error) {
+          setErrorMessage(error.message);
+        }
+        setLoading(false);
+      }
+    };
+    fetchSimilarMovies();
+  }, [params.id, apiKey, baseUrl]);
+  useEffect(() => console.log("similarMovies", similarMovies), [similarMovies]);
+
   return (
     <>
       {loading ? (
@@ -53,6 +80,7 @@ function DetailPage() {
               {movieDetail && (
                 <MovieDetailCard
                   movieDetail={movieDetail}
+                  similarMovies={similarMovies}
                   posterPath={posterPath}
                 />
               )}

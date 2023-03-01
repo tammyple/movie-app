@@ -4,6 +4,7 @@ import GenreList from "../components/GenreList";
 import { Typography } from "@mui/material";
 import MovieList from "../components/MovieList";
 import LoadingScreen from "../components/LoadingScreen";
+import MovieTrendingList from "../components/MovieTrendingList";
 
 function HomePage() {
   const [trendingMovies, setTrendingMovies] = useState([]);
@@ -91,7 +92,7 @@ function HomePage() {
                   <div style={{ color: "red" }}>{errorMessage}</div>
                 ) : (
                   <>
-                    <MovieList
+                    <MovieTrendingList
                       movies={trendingMovies}
                       posterPath={posterPath}
                     />

@@ -11,10 +11,11 @@ import LoginIcon from "@mui/icons-material/Login";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import SearchIcon from "@mui/icons-material/Search";
-import { TextField } from "@mui/material";
-import { FormProvider } from "react-hook-form";
 import LoadingScreen from "../components/LoadingScreen";
 import LiveTvIcon from "@mui/icons-material/LiveTv";
+
+import Paper from "@mui/material/Paper";
+import InputBase from "@mui/material/InputBase";
 
 export default function MainHeader() {
   const [searchMovies, setSearchMovies] = useState([]);
@@ -50,6 +51,12 @@ export default function MainHeader() {
     fetchSearchMovies();
   }, [apiKey, baseUrl, searchValue]);
   useEffect(() => console.log("searchMovies", searchMovies), [searchMovies]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    navigate(`/search/${searchValue}`);
+    console.log("searchValue", searchValue);
+  };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -93,41 +100,59 @@ export default function MainHeader() {
           >
             TV
           </Button>
-          <FormProvider>
-            <TextField
-              id="search-bar"
-              className="text"
-              onInput={(e) => {
+
+          <Paper
+            component="form"
+            onSubmit={handleSubmit}
+            sx={{
+              p: "2px 4px",
+              display: "flex",
+              alignItems: "center",
+              width: 400,
+            }}
+          >
+            <InputBase
+              sx={{ ml: 1, flex: 1 }}
+              placeholder="Search"
+              inputProps={{ "aria-label": "search" }}
+              onChange={(e) => {
                 setSearchValue(e.target.value);
               }}
-              variant="outlined"
-              placeholder="Search..."
-              size="small"
             />
-            {loading ? (
-              <LoadingScreen />
-            ) : (
-              <>
-                {errorMessage ? (
-                  <div style={{ color: "red" }}>{errorMessage}</div>
-                ) : (
-                  <IconButton
-                    onClick={() => navigate(`/search/${searchValue}`)}
-                    aria-label="search"
-                  >
+            <Button type="submit" sx={{ p: "10px" }} aria-label="search">
+              {loading ? (
+                <LoadingScreen />
+              ) : (
+                <>
+                  {errorMessage ? (
+                    <div style={{ color: "red" }}>{errorMessage}</div>
+                  ) : (
                     <SearchIcon />
-                  </IconButton>
-                )}
-              </>
-            )}
-          </FormProvider>
+                  )}
+                </>
+              )}
+            </Button>
+          </Paper>
 
           <Box edge="end" sx={{ flexGrow: 1 }} />
-          <AccountCircleIcon />
-          <Typography>{auth.user?.username}</Typography>
-
           <Button
-            variant="contained"
+            variant="text"
+            sx={{
+              ml: 2,
+              display: {
+                xs: "none",
+                md: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "center",
+              },
+            }}
+          >
+            <AccountCircleIcon />
+            <Typography>{auth.user?.username}</Typography>
+          </Button>
+          <Button
+            variant="outlined"
             type="submit"
             onClick={() => {
               auth.logout(() => navigate("/"));

@@ -40,7 +40,16 @@ function SearchPage() {
   useEffect(() => console.log("searchMovies", searchMovies), [searchMovies]);
   console.log("searchMovies", searchMovies);
   return (
-    <div>
+    <main
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "100vh",
+        width: "100%",
+      }}
+    >
       {" "}
       <Typography variant="h5" mb={2} mt={3}>
         MOVIES SEARCH QUERY: "{query}"
@@ -52,9 +61,14 @@ function SearchPage() {
           {errorMessage ? (
             <div style={{ color: "red" }}>{errorMessage}</div>
           ) : (
-            <Grid container direction="row" mt={3} spacing={3}>
+            <Grid
+              container
+              direction="row"
+              sx={{ mt: 3, pr: 3, pl: 3, width: "100%" }}
+              spacing={3}
+            >
               {searchMovies.map((movie) => (
-                <Grid item xs={10} sm={6} md={4} lg={3}>
+                <Grid item xs={6} sm={4} md={3}>
                   <MovieCard
                     key={movie.id}
                     movie={movie}
@@ -66,7 +80,7 @@ function SearchPage() {
           )}
         </>
       )}
-    </div>
+    </main>
   );
 }
 

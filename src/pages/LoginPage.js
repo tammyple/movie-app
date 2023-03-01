@@ -35,18 +35,20 @@ function LoginPage() {
   };
 
   return (
-    <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-      <Stack spacing={3} sx={{ minWidth: "350px" }}>
-        <Typography variant="h4" textAlign="center">
-          Login
-        </Typography>
-        <FTextField name="username" label="Username" />
+    <>
+      <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+        <Stack spacing={3} sx={{ minWidth: "350px" }}>
+          <Typography variant="h4" textAlign="center">
+            Login
+          </Typography>
+          <FTextField name="username" label="Username" />
 
-        <Button type="submit" variant="contained">
-          Login
-        </Button>
-      </Stack>
-    </FormProvider>
+          <Button type="submit" variant="contained">
+            Login
+          </Button>
+        </Stack>
+      </FormProvider>
+    </>
   );
 }
 
