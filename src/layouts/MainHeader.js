@@ -93,7 +93,6 @@ export default function MainHeader() {
             component="div"
             sx={{
               wrap: "noWrap",
-              mr: 2,
               display: { xs: "none", sm: "block" },
             }}
             onClick={() => navigate(`/discover/tv/1`)}
@@ -109,6 +108,7 @@ export default function MainHeader() {
               display: "flex",
               alignItems: "center",
               width: 400,
+              ml: 2,
             }}
           >
             <InputBase

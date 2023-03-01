@@ -52,7 +52,7 @@ export default function MovieDetailCard({
                 minWidth="400px"
                 sx={{ justifyContent: "space-between" }}
               >
-                <Typography gutterBottom variant="h5" component="div">
+                <Typography gutterBottom variant="h4" component="div">
                   {movieDetail.title}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
@@ -197,9 +197,25 @@ export default function MovieDetailCard({
               mt: 3,
             }}
           >
-            <Typography variant="h5">Similar To This</Typography>
-
-            <Grid container direction="row" mt={3} spacing={3}>
+            <Typography variant="h4">More Like This</Typography>
+            {similarMovies.length !== 0 ? (
+              <Grid container direction="row" mt={3} spacing={3}>
+                {similarMovies.map((movie) => (
+                  <Grid key={movie.id} item xs={6} sm={4} md={3}>
+                    <MovieCard
+                      key={movie.id}
+                      movie={movie}
+                      posterPath={posterPath}
+                    />
+                  </Grid>
+                ))}
+              </Grid>
+            ) : (
+              <Typography variant="body1" mt={2}>
+                Sorry, no similar movies found.
+              </Typography>
+            )}
+            {/* <Grid container direction="row" mt={3} spacing={3}>
               {similarMovies.map((movie) => (
                 <Grid key={movie.id} item xs={6} sm={4} md={3}>
                   <MovieCard
@@ -209,7 +225,7 @@ export default function MovieDetailCard({
                   />
                 </Grid>
               ))}
-            </Grid>
+            </Grid> */}
           </Box>
         </Box>
       ) : (
