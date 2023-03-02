@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import LoadingScreen from "../components/LoadingScreen";
-import { Alert, Box } from "@mui/material";
+import { Alert, Box, Typography } from "@mui/material";
 import MovieDetailCard from "../components/MovieDetailCard";
 import MovieTrailer from "../components/MovieTrailer";
 
@@ -51,7 +51,6 @@ function DetailPage() {
           const data = await res.json();
           if (res.ok) {
             setSimilarMovies(data.results);
-
             setErrorMessage("");
           } else {
             setErrorMessage(data.message);
@@ -63,12 +62,7 @@ function DetailPage() {
       }
     };
     fetchSimilarMovies();
-  }, [params.id, apiKey, baseUrl, movieDetail]);
-
-  useEffect(
-    () => console.log("similar Movies", similarMovies),
-    [similarMovies]
-  );
+  }, [params.id, apiKey, baseUrl]);
 
   useEffect(() => {
     const fetchMovieTrailer = async () => {
@@ -92,7 +86,12 @@ function DetailPage() {
     fetchMovieTrailer();
   }, [baseUrl, apiKey, params.id]);
 
-  useEffect(() => console.log("movie Trailer", movieTrailer), [movieTrailer]);
+  // useEffect(() => console.log("movie Trailer", movieTrailer), [movieTrailer]);
+  // useEffect(() => console.log("movieDetail", movieDetail), [movieDetail]);
+  // useEffect(
+  //   () => console.log("similar Movies", similarMovies),
+  //   [similarMovies]
+  // );
   return (
     <>
       {loading ? (
@@ -103,19 +102,22 @@ function DetailPage() {
             <Alert severity="error">{errorMessage}</Alert>
           ) : (
             <>
-              {movieDetail && (
+              {movieDetail && similarMovies ? (
                 <Box width="100%">
-                  <MovieTrailer movieTrailer={movieTrailer} />
+                  {movieTrailer &&
+                  movieTrailer !== null &&
+                  movieTrailer.length > 0 ? (
+                    <MovieTrailer movieTrailer={movieTrailer} />
+                  ) : null}
                   <MovieDetailCard
                     movieDetail={movieDetail}
                     similarMovies={similarMovies}
                     posterPath={posterPath}
                   />
                 </Box>
-              )}
-              {/* {!movie && (
+              ) : (
                 <Typography variant="h6">404 Movie Not Found</Typography>
-              )} */}
+              )}
             </>
           )}
         </>

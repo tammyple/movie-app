@@ -196,7 +196,9 @@ export default function MovieDetailCard({
             }}
           >
             <Typography variant="h4">More Like This</Typography>
-            {similarMovies && similarMovies.length !== 0 ? (
+            {similarMovies &&
+            similarMovies !== null &&
+            similarMovies.length !== 0 ? (
               <Grid container direction="row" mt={3} spacing={3}>
                 {similarMovies?.map((movie) => (
                   <Grid key={movie.id} item xs={6} sm={4} md={3}>
