@@ -23,24 +23,24 @@ export default function MovieDetailCard({
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
-            alignItems: "start",
+            alignItems: "center",
             m: 3,
           }}
         >
           <Card>
             <Stack
-              minWidth="90%"
+              width="90vw"
               display="flex"
               flexDirection={{ xs: "column", md: "row" }}
               sx={{
                 borderRadius: "10px",
                 justifyContent: "center",
-                alignItems: "start",
+                alignItems: "center",
                 display: "flex",
               }}
             >
               <CardMedia
-                sx={{ height: "500px", width: "400px", minWidth: "400px" }}
+                sx={{ height: "500px", width: "350px", minWidth: "300px" }}
                 image={`${posterPath}${movieDetail.poster_path}`}
                 title={movieDetail.title}
               />
@@ -49,7 +49,7 @@ export default function MovieDetailCard({
                 pl={{ xs: 0, md: 1 }}
                 sx={{
                   minHeight: "100%",
-                  minWidth: "400px",
+                  minWidth: "300px",
                   justifyContent: "space-between",
                 }}
               >
