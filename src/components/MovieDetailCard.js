@@ -19,18 +19,26 @@ export default function MovieDetailCard({
       {movieDetail && similarMovies ? (
         <Box
           sx={{
-            maxWidth: "100%",
+            width: "100%",
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
-            m: 3,
+            pl: 3,
+            pr: 3,
+            pt: 2,
           }}
         >
-          <Card>
+          <Card
+            sx={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
             <Stack
               width="90vw"
-              display="flex"
               flexDirection={{ xs: "column", md: "row" }}
               sx={{
                 borderRadius: "10px",
