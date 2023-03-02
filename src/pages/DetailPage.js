@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import LoadingScreen from "../components/LoadingScreen";
-import { Alert, Grid } from "@mui/material";
+import { Alert, Box, Grid } from "@mui/material";
 import MovieDetailCard from "../components/MovieDetailCard";
 import MovieTrailer from "../components/MovieTrailer";
 
@@ -104,28 +104,14 @@ function DetailPage() {
           ) : (
             <>
               {movieDetail && (
-                <main>
-                  <Grid
-                    item
-                    sx={{
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: { xs: "flex-start", md: "center" },
-                      alignItems: "center",
-                      width: "100%",
-                      ml: 2,
-                      mr: 2,
-                      mt: 1,
-                    }}
-                  >
-                    <MovieTrailer movieTrailer={movieTrailer} />
-                  </Grid>
+                <Box width="100%">
+                  <MovieTrailer movieTrailer={movieTrailer} />
                   <MovieDetailCard
                     movieDetail={movieDetail}
                     similarMovies={similarMovies}
                     posterPath={posterPath}
                   />
-                </main>
+                </Box>
               )}
               {/* {!movie && (
                 <Typography variant="h6">404 Movie Not Found</Typography>

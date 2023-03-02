@@ -12,8 +12,24 @@ function MovieTrailer({ movieTrailer }) {
   // let item = movieTrailer[Math.floor(Math.random() * movieTrailer.length)];
 
   return (
-    <Box sx={{ width: "100%" }}>
-      <Card sx={{ position: "relative", height: "400px" }}>
+    <Box
+      sx={{
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        pl: 3,
+        pr: 3,
+        pt: 2,
+      }}
+    >
+      <Card
+        sx={{
+          position: "relative",
+          width: "100%",
+          height: "400px",
+        }}
+      >
         <CardMedia
           component="iframe"
           sx={{

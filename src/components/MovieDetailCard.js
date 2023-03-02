@@ -29,7 +29,7 @@ export default function MovieDetailCard({
         >
           <Card>
             <Stack
-              minWidth="80%"
+              minWidth="90%"
               display="flex"
               flexDirection={{ xs: "column", md: "row" }}
               sx={{
