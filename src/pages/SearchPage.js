@@ -24,7 +24,6 @@ function SearchPage() {
         const res = await fetch(url);
         const data = await res.json();
         if (res.ok) {
-          console.log(JSON.stringify(data));
           setSearchMovies(data.results);
           setErrorMessage("");
         } else {
@@ -37,8 +36,6 @@ function SearchPage() {
     };
     fetchSearchMovies();
   }, [apiKey, baseUrl, query]);
-  useEffect(() => console.log("searchMovies", searchMovies), [searchMovies]);
-  console.log("searchMovies", searchMovies);
   return (
     <main
       style={{

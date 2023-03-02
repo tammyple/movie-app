@@ -27,7 +27,6 @@ function MoviePage() {
         const res = await fetch(url);
         const data = await res.json();
         if (res.ok) {
-          console.log(JSON.stringify(data));
           setDiscoverMovies(data.results);
 
           setErrorMessage("");
@@ -41,10 +40,6 @@ function MoviePage() {
     };
     fetchDiscoverMovies();
   }, [apiKey, baseUrl, pageId]); //detect when baseUrl & apiKey changes
-  useEffect(
-    () => console.log("trending movies", discoverMovies),
-    [discoverMovies]
-  ); // clg movies when movies changed
 
   return (
     <div>

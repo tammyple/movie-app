@@ -1,0 +1,121 @@
+[
+  {
+    "id": 550,
+    "results": [
+      {
+        "iso_639_1": "en",
+        "iso_3166_1": "US",
+        "name": "Fight Club (1999) Trailer - Starring Brad Pitt, Edward Norton, Helena Bonham Carter",
+        "key": "O-b2VfmmbyA",
+        "site": "YouTube",
+        "size": 720,
+        "type": "Trailer",
+        "official": false,
+        "published_at": "2016-03-05T02:03:14.000Z",
+        "id": "639d5326be6d88007f170f44"
+      },
+      {
+        "iso_639_1": "en",
+        "iso_3166_1": "US",
+        "name": "#TBT Trailer",
+        "key": "BdJKm16Co6M",
+        "site": "YouTube",
+        "size": 1080,
+        "type": "Trailer",
+        "official": true,
+        "published_at": "2014-10-02T19:20:22.000Z",
+        "id": "5c9294240e0a267cd516835f"
+      }
+    ]
+  },
+
+  {
+    "id": 937278,
+    "results": [
+      {
+        "iso_639_1": "en",
+        "iso_3166_1": "US",
+        "name": "Film Clip - O-T-T-O",
+        "key": "vaBqU00XzWo",
+        "site": "YouTube",
+        "size": 1080,
+        "type": "Clip",
+        "official": true,
+        "published_at": "2023-01-30T17:00:40.000Z",
+        "id": "63d9609ba9117f0083fef4db"
+      },
+      {
+        "iso_639_1": "en",
+        "iso_3166_1": "US",
+        "name": "Film Clip - Otto's Driving Pep Talk",
+        "key": "PBMmrXq2I3k",
+        "site": "YouTube",
+        "size": 1080,
+        "type": "Clip",
+        "official": true,
+        "published_at": "2023-01-26T17:00:14.000Z",
+        "id": "63d2c6f9a410c812385d4cfb"
+      },
+      {
+        "iso_639_1": "en",
+        "iso_3166_1": "US",
+        "name": "Interview with director Marc Forster",
+        "key": "j6Nfu4OlJSs",
+        "site": "YouTube",
+        "size": 1080,
+        "type": "Featurette",
+        "official": true,
+        "published_at": "2023-01-05T09:08:57.000Z",
+        "id": "63b6cefd3344c6008a9608d4"
+      },
+      {
+        "iso_639_1": "en",
+        "iso_3166_1": "US",
+        "name": "'A Man Called Otto' with Tom Hanks, Rita Wilson & more | Academy Conversations",
+        "key": "tfP5H4V2o-U",
+        "site": "YouTube",
+        "size": 1080,
+        "type": "Featurette",
+        "official": true,
+        "published_at": "2022-12-30T18:00:09.000Z",
+        "id": "63d1149ae72fe800b204779d"
+      },
+      {
+        "iso_639_1": "en",
+        "iso_3166_1": "US",
+        "name": "Film Clip - Meet the Neighbors",
+        "key": "flKd8vHnC2I",
+        "site": "YouTube",
+        "size": 1080,
+        "type": "Clip",
+        "official": true,
+        "published_at": "2022-12-16T23:00:32.000Z",
+        "id": "639fa9ceda10f000a7eda6fd"
+      },
+      {
+        "iso_639_1": "en",
+        "iso_3166_1": "US",
+        "name": "Official Trailer #2",
+        "key": "XvbGalkHKPY",
+        "site": "YouTube",
+        "size": 1080,
+        "type": "Trailer",
+        "official": true,
+        "published_at": "2022-12-01T16:00:22.000Z",
+        "id": "6388dba0229ae215b46104a2"
+      },
+      {
+        "iso_639_1": "en",
+        "iso_3166_1": "US",
+        "name": "Official Trailer",
+        "key": "eFYUX9l-m5I",
+        "site": "YouTube",
+        "size": 1080,
+        "type": "Trailer",
+        "official": true,
+        "published_at": "2022-10-20T13:00:25.000Z",
+        "id": "6351502c5f4b7300835bc370"
+      }
+    ]
+  }
+]

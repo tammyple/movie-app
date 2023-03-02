@@ -4,6 +4,7 @@ import GenreList from "../components/GenreList";
 import { Typography } from "@mui/material";
 import LoadingScreen from "../components/LoadingScreen";
 import MovieTrendingList from "../components/MovieTrendingList";
+import MovieTrailer from "../components/MovieTrailer";
 
 function HomePage() {
   const [trendingMovies, setTrendingMovies] = useState([]);
@@ -22,9 +23,7 @@ function HomePage() {
         const res = await fetch(url);
         const data = await res.json();
         if (res.ok) {
-          console.log(JSON.stringify(data));
           setTrendingMovies(data.results);
-
           setErrorMessage("");
         } else {
           setErrorMessage(data.message);

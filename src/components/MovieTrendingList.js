@@ -4,7 +4,7 @@ import MovieCard from "./MovieCard";
 import Carousel from "../components/Carousel";
 import "../components/Carousel.css";
 
-export default function MovieList({ movies, posterPath }) {
+export default function MovieTrendingList({ movies, posterPath }) {
   return (
     <>
       <div style={{ width: "100%", pr: 1, pl: 1 }}>

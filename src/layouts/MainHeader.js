@@ -9,10 +9,10 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import LoginIcon from "@mui/icons-material/Login";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import SearchIcon from "@mui/icons-material/Search";
 import LoadingScreen from "../components/LoadingScreen";
 import LiveTvIcon from "@mui/icons-material/LiveTv";
+import { Avatar } from "@mui/material";
 
 import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
@@ -37,25 +37,24 @@ export default function MainHeader() {
         const res = await fetch(url);
         const data = await res.json();
         if (res.ok) {
-          console.log(JSON.stringify(data));
           setSearchMovies(data.results);
           setErrorMessage("");
         } else {
           setErrorMessage(data.message);
         }
       } catch (error) {
-        console.log("error", error.message);
+        setErrorMessage(error.message);
       }
       setLoading(false);
     };
     fetchSearchMovies();
   }, [apiKey, baseUrl, searchValue]);
-  useEffect(() => console.log("searchMovies", searchMovies), [searchMovies]);
+
+  useEffect(() => console.log(searchMovies), [searchMovies]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     navigate(`/search/${searchValue}`);
-    console.log("searchValue", searchValue);
   };
 
   return (
@@ -135,7 +134,7 @@ export default function MainHeader() {
           </Paper>
 
           <Box edge="end" sx={{ flexGrow: 1 }} />
-          <Button
+          <Avatar
             variant="text"
             sx={{
               ml: 2,
@@ -148,9 +147,9 @@ export default function MainHeader() {
               },
             }}
           >
-            <AccountCircleIcon />
-            <Typography>{auth.user?.username}</Typography>
-          </Button>
+            {/* <AccountCircleIcon /> */}
+            <Typography>{auth.user?.username.charAt(0)}</Typography>
+          </Avatar>
           <Button
             variant="outlined"
             type="submit"

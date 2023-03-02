@@ -58,14 +58,13 @@ function GenreList({ baseUrl, apiKey, posterPath, backdropPath }) {
         const res = await fetch(url);
         const data = await res.json();
         if (res.ok) {
-          console.log(JSON.stringify(data));
           setGenreList(data.genres);
           setErrorMessage("");
         } else {
           setErrorMessage(data.message);
         }
       } catch (error) {
-        console.log("error", error.message);
+        setErrorMessage(error.message);
       }
       setLoading(false);
     };
@@ -80,7 +79,6 @@ function GenreList({ baseUrl, apiKey, posterPath, backdropPath }) {
         const res = await fetch(url);
         const data = await res.json();
         if (res.ok) {
-          console.log(JSON.stringify(data));
           setMovieList(data.results);
           setErrorMessage("");
         } else {
@@ -93,7 +91,7 @@ function GenreList({ baseUrl, apiKey, posterPath, backdropPath }) {
     };
     fetchMovieList();
   }, [apiKey, baseUrl, genreId]);
-  useEffect(() => console.log("movieList", movieList), [movieList]);
+  // useEffect(() => console.log("movieList", movieList), [movieList]);
 
   return (
     <Box sx={{ width: "100vw", pl: 5, pr: 5 }}>

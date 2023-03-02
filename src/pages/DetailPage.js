@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import LoadingScreen from "../components/LoadingScreen";
-import { Alert } from "@mui/material";
+import { Alert, Grid } from "@mui/material";
 import MovieDetailCard from "../components/MovieDetailCard";
+import MovieTrailer from "../components/MovieTrailer";
 
 function DetailPage() {
   const [movieDetail, setMovieDetail] = useState(null);
   const [similarMovies, setSimilarMovies] = useState(null);
+  const [movieTrailer, setMovieTrailer] = useState([]);
+
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
   const params = useParams();
@@ -24,9 +27,7 @@ function DetailPage() {
           const res = await fetch(url);
           const data = await res.json();
           if (res.ok) {
-            console.log(JSON.stringify(data));
             setMovieDetail(data);
-
             setErrorMessage("");
           } else {
             setErrorMessage(data.message);
@@ -39,7 +40,6 @@ function DetailPage() {
     };
     fetchMovieDetail();
   }, [params.id, apiKey, baseUrl]);
-  useEffect(() => console.log("movieDetail", movieDetail), [movieDetail]);
 
   useEffect(() => {
     const fetchSimilarMovies = async () => {
@@ -50,7 +50,6 @@ function DetailPage() {
           const res = await fetch(url);
           const data = await res.json();
           if (res.ok) {
-            console.log(JSON.stringify(data));
             setSimilarMovies(data.results);
 
             setErrorMessage("");
@@ -64,9 +63,36 @@ function DetailPage() {
       }
     };
     fetchSimilarMovies();
-  }, [params.id, apiKey, baseUrl]);
-  useEffect(() => console.log("similarMovies", similarMovies), [similarMovies]);
+  }, [params.id, apiKey, baseUrl, movieDetail]);
 
+  useEffect(
+    () => console.log("similar Movies", similarMovies),
+    [similarMovies]
+  );
+
+  useEffect(() => {
+    const fetchMovieTrailer = async () => {
+      setLoading(true);
+      try {
+        const url = `${baseUrl}movie/${params.id}/videos?api_key=${apiKey}&language=en-US&append_to_response=videos`;
+        const res = await fetch(url);
+        const data = await res.json();
+        if (res.ok) {
+          console.log(JSON.stringify(data));
+          setMovieTrailer(data.results);
+          setErrorMessage("");
+        } else {
+          setErrorMessage(data.message);
+        }
+      } catch (error) {
+        setErrorMessage(error.message);
+      }
+      setLoading(false);
+    };
+    fetchMovieTrailer();
+  }, [baseUrl, apiKey, params.id]);
+
+  useEffect(() => console.log("movie Trailer", movieTrailer), [movieTrailer]);
   return (
     <>
       {loading ? (
@@ -78,11 +104,28 @@ function DetailPage() {
           ) : (
             <>
               {movieDetail && (
-                <MovieDetailCard
-                  movieDetail={movieDetail}
-                  similarMovies={similarMovies}
-                  posterPath={posterPath}
-                />
+                <main>
+                  <Grid
+                    item
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: { xs: "flex-start", md: "center" },
+                      alignItems: "center",
+                      width: "100%",
+                      ml: 2,
+                      mr: 2,
+                      mt: 1,
+                    }}
+                  >
+                    <MovieTrailer movieTrailer={movieTrailer} />
+                  </Grid>
+                  <MovieDetailCard
+                    movieDetail={movieDetail}
+                    similarMovies={similarMovies}
+                    posterPath={posterPath}
+                  />
+                </main>
               )}
               {/* {!movie && (
                 <Typography variant="h6">404 Movie Not Found</Typography>

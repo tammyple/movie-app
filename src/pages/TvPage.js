@@ -27,7 +27,6 @@ function TvPage() {
         const res = await fetch(url);
         const data = await res.json();
         if (res.ok) {
-          console.log(JSON.stringify(data));
           setDiscoverTv(data.results);
 
           setErrorMessage("");
@@ -41,7 +40,6 @@ function TvPage() {
     };
     fetchDiscoverTv();
   }, [apiKey, baseUrl, pageId]); //detect when baseUrl & apiKey changes
-  useEffect(() => console.log("trending tvs", discoverTv), [discoverTv]); // clg movies when movies changed
 
   return (
     <div>

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -14,10 +14,9 @@ export default function MovieDetailCard({
   similarMovies,
   posterPath,
 }) {
-  console.log("similar Movies detail page", similarMovies);
   return (
     <>
-      {movieDetail ? (
+      {movieDetail && similarMovies ? (
         <Box
           sx={{
             maxWidth: "100%",
@@ -48,9 +47,11 @@ export default function MovieDetailCard({
               <CardContent
                 my={3}
                 pl={{ xs: 0, md: 1 }}
-                minHeight="100%"
-                minWidth="400px"
-                sx={{ justifyContent: "space-between" }}
+                sx={{
+                  minHeight: "100%",
+                  minWidth: "400px",
+                  justifyContent: "space-between",
+                }}
               >
                 <Typography gutterBottom variant="h4" component="div">
                   {movieDetail.title}
@@ -109,12 +110,6 @@ export default function MovieDetailCard({
                       <Chip
                         key={`${item.iso_3166_1}`}
                         label={`${item.name}`}
-                        avatar={
-                          <Avatar
-                            alt={`${item.name}`}
-                            src={`${posterPath}${item.logo_path}`}
-                          />
-                        }
                         size="small"
                         variant="contained"
                       />
@@ -146,7 +141,10 @@ export default function MovieDetailCard({
                           avatar={
                             <Avatar
                               alt={`${item.name}`}
-                              src={`${posterPath}${item.logo_path}`}
+                              src={
+                                item.logo_path &&
+                                `${posterPath}${item.logo_path}`
+                              }
                             />
                           }
                           size="small"
@@ -198,9 +196,9 @@ export default function MovieDetailCard({
             }}
           >
             <Typography variant="h4">More Like This</Typography>
-            {similarMovies.length !== 0 ? (
+            {similarMovies && similarMovies.length !== 0 ? (
               <Grid container direction="row" mt={3} spacing={3}>
-                {similarMovies.map((movie) => (
+                {similarMovies?.map((movie) => (
                   <Grid key={movie.id} item xs={6} sm={4} md={3}>
                     <MovieCard
                       key={movie.id}
@@ -215,17 +213,6 @@ export default function MovieDetailCard({
                 Sorry, no similar movies found.
               </Typography>
             )}
-            {/* <Grid container direction="row" mt={3} spacing={3}>
-              {similarMovies.map((movie) => (
-                <Grid key={movie.id} item xs={6} sm={4} md={3}>
-                  <MovieCard
-                    key={movie.id}
-                    movie={movie}
-                    posterPath={posterPath}
-                  />
-                </Grid>
-              ))}
-            </Grid> */}
           </Box>
         </Box>
       ) : (
