@@ -4,7 +4,6 @@ import GenreList from "../components/GenreList";
 import { Typography } from "@mui/material";
 import LoadingScreen from "../components/LoadingScreen";
 import MovieTrendingList from "../components/MovieTrendingList";
-import MovieTrailer from "../components/MovieTrailer";
 
 function HomePage() {
   const [trendingMovies, setTrendingMovies] = useState([]);

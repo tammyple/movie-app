@@ -1,14 +1,11 @@
+import React from "react";
 import { Box } from "@mui/material";
-import React, { useState, useEffect } from "react";
 import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import { CardActionArea } from "@mui/material";
-import LoadingScreen from "./LoadingScreen";
 
 function MovieTrailer({ movieTrailer }) {
-  const youtubePath = `http://www.youtube.com/embed/`;
+  const youtubePath = `https://www.youtube-nocookie.com/embed/`;
+  let trailer = movieTrailer.find((item) => item.type === "Trailer");
   // let item = movieTrailer[Math.floor(Math.random() * movieTrailer.length)];
 
   return (
@@ -42,16 +39,10 @@ function MovieTrailer({ movieTrailer }) {
             display: { sm: "block", md: "flex" },
           }}
           frameBorder="0"
-          image={`${youtubePath}${movieTrailer[0].key}`}
-          // image={`http://www.youtube.com/embed/uAMsKHaqRfQ`}
+          image={`${youtubePath}${trailer.key}`}
           alt="trailer"
           autoPlay
         />
-        {/* <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {movieTrailer.name}
-          </Typography>
-        </CardContent> */}
       </Card>
     </Box>
   );

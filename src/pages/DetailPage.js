@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import LoadingScreen from "../components/LoadingScreen";
-import { Alert, Box, Grid } from "@mui/material";
+import { Alert, Box } from "@mui/material";
 import MovieDetailCard from "../components/MovieDetailCard";
 import MovieTrailer from "../components/MovieTrailer";
 
