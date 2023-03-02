@@ -86,12 +86,6 @@ function DetailPage() {
     fetchMovieTrailer();
   }, [baseUrl, apiKey, params.id]);
 
-  // useEffect(() => console.log("movie Trailer", movieTrailer), [movieTrailer]);
-  // useEffect(() => console.log("movieDetail", movieDetail), [movieDetail]);
-  // useEffect(
-  //   () => console.log("similar Movies", similarMovies),
-  //   [similarMovies]
-  // );
   return (
     <>
       {loading ? (

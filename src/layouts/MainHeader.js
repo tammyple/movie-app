@@ -74,7 +74,12 @@ export default function MainHeader() {
             }}
             variant="h6"
             component="div"
-            sx={{ wrap: "noWrap", display: { xs: "none", sm: "block" } }}
+            sx={{
+              wrap: "noWrap",
+              display: { xs: "none", sm: "flex" },
+              justifyContent: "center",
+              alignItems: "center",
+            }}
           >
             Home
           </Button>
@@ -82,7 +87,12 @@ export default function MainHeader() {
           <Button
             variant="h6"
             component="div"
-            sx={{ wrap: "noWrap", display: { xs: "none", sm: "block" } }}
+            sx={{
+              wrap: "noWrap",
+              display: { xs: "none", sm: "flex" },
+              justifyContent: "center",
+              alignItems: "center",
+            }}
             onClick={() => navigate(`/discover/movies/1`)}
           >
             Movies
@@ -92,7 +102,9 @@ export default function MainHeader() {
             component="div"
             sx={{
               wrap: "noWrap",
-              display: { xs: "none", sm: "block" },
+              display: { xs: "none", sm: "flex" },
+              justifyContent: "center",
+              alignItems: "center",
             }}
             onClick={() => navigate(`/discover/tv/1`)}
           >
@@ -147,7 +159,6 @@ export default function MainHeader() {
               },
             }}
           >
-            {/* <AccountCircleIcon /> */}
             <Typography>{auth.user?.username.charAt(0)}</Typography>
           </Avatar>
           <Button
@@ -159,6 +170,7 @@ export default function MainHeader() {
             startIcon={<LoginIcon sx={{ display: "inline" }} />}
             sx={{
               ml: 2,
+              wrap: "noWrap",
               display: {
                 xs: "none",
                 md: "flex",

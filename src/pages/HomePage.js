@@ -33,11 +33,7 @@ function HomePage() {
       setLoading(false);
     };
     fetchTrendingMovies();
-  }, [apiKey, baseUrl]); //detect when baseUrl & apiKey changes
-  // useEffect(
-  //   () => console.log("trending movies", trendingMovies),
-  //   [trendingMovies]
-  // ); // clg movies when movies changed
+  }, [apiKey, baseUrl]);
 
   return (
     <>

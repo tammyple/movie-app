@@ -134,7 +134,7 @@ function GenreList({ baseUrl, apiKey, posterPath, backdropPath }) {
             {errorMessage ? (
               <div style={{ color: "red" }}>{errorMessage}</div>
             ) : (
-              <Grid container direction="row" spacing={2} mt={3} ml={3}>
+              <Grid container direction="row" spacing={2} mt={1} ml={3} mr={3}>
                 {movieList.map((movie) => (
                   <Grid key={movie.id} item xs={10} sm={6} md={4} lg={3}>
                     <MovieCard movie={movie} posterPath={posterPath} />
