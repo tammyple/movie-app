@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Grid } from "@mui/material";
-import MovieList from "../components/MovieList";
-import { Typography } from "@mui/material";
-import PaginationButtons from "../components/PaginationButtons";
-import Stack from "@mui/material/Stack";
-import LoadingScreen from "../components/LoadingScreen";
+import { fetchData } from "../api/getApi";
+import ProgramGrid from "../components/ProgramGrid";
 
 function MoviePage() {
   const [discoverMovies, setDiscoverMovies] = useState([]);
@@ -24,75 +20,78 @@ function MoviePage() {
       setLoading(true);
       try {
         const url = `${baseUrl}/discover/movie?api_key=${apiKey}&language=en-US&page=${pageId}`;
-        const res = await fetch(url);
-        const data = await res.json();
-        if (res.ok) {
-          setDiscoverMovies(data.results);
-
-          setErrorMessage("");
-        } else {
-          setErrorMessage(data.message);
-        }
+        const data = await fetchData(url);
+        setDiscoverMovies(data.results);
       } catch (error) {
         setErrorMessage(error.message);
       }
       setLoading(false);
     };
     fetchDiscoverMovies();
-  }, [apiKey, baseUrl, pageId]); //detect when baseUrl & apiKey changes
+  }, [apiKey, baseUrl, pageId]);
 
   return (
-    <div>
-      <main
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          minHeight: "100vh",
-          width: "100%",
-        }}
-      >
-        <Grid
-          container
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            minHeight: "100vh",
-            width: "90%",
-            ml: 2,
-            mr: 2,
-          }}
-        >
-          <Typography variant="h5" my={3}>
-            DISCOVER MOVIES
-          </Typography>
-          {loading ? (
-            <LoadingScreen />
-          ) : (
-            <>
-              {errorMessage ? (
-                <div style={{ color: "red" }}>{errorMessage}</div>
-              ) : (
-                <>
-                  <Grid item mt={1}>
-                    <MovieList
-                      movies={discoverMovies}
-                      posterPath={posterPath}
-                    />
-                  </Grid>
-                </>
-              )}
-            </>
-          )}
-          <Stack spacing={2}>
-            <PaginationButtons pageTitle={pageTitle} />
-          </Stack>
-        </Grid>
-      </main>
-    </div>
+    <>
+      <ProgramGrid
+        discoverList={discoverMovies}
+        pageTitle={pageTitle}
+        loading={loading}
+        errorMessage={errorMessage}
+        posterPath={posterPath}
+      />
+    </>
+
+    // <div>
+    //   <main
+    //     style={{
+    //       display: "flex",
+    //       flexDirection: "column",
+    //       justifyContent: "center",
+    //       alignItems: "center",
+    //       minHeight: "100vh",
+    //       width: "100%",
+    //     }}
+    //   >
+    //     <Grid
+    //       container
+    //       sx={{
+    //         display: "flex",
+    //         flexDirection: "column",
+    //         justifyContent: "center",
+    //         alignItems: "center",
+    //         minHeight: "100vh",
+    //         width: "90%",
+    //         ml: 2,
+    //         mr: 2,
+    //       }}
+    //     >
+    //       <Typography variant="h5" my={3}>
+    //         DISCOVER MOVIES
+    //       </Typography>
+    //       {loading ? (
+    //         <LoadingScreen />
+    //       ) : (
+    //         <>
+    //           {errorMessage ? (
+    //             <div style={{ color: "red" }}>{errorMessage}</div>
+    //           ) : (
+    //             <>
+    //               <Grid item mt={1}>
+    //                 <MovieList
+    //                   movies={discoverMovies}
+    //                   posterPath={posterPath}
+    //                 />
+    //               </Grid>
+    //             </>
+    //           )}
+    //         </>
+    //       )}
+    //       <Stack spacing={2}>
+    //         <PaginationButtons pageTitle={pageTitle} />
+    //       </Stack>
+    //     </Grid>
+    //   </main>
+    // </div>
   );
 }
 

@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import { Grid, Button } from "@mui/material";
 import MovieCard from "./MovieCard";
 import LoadingScreen from "./LoadingScreen";
+import { fetchData } from "../api/getApi";
 
 const BootstrapButton = styled(Button)({
   boxShadow: "none",
@@ -43,7 +44,7 @@ const BootstrapButton = styled(Button)({
   },
 });
 
-function GenreList({ baseUrl, apiKey, posterPath, backdropPath }) {
+function GenreList({ apiKey, baseUrl, posterPath }) {
   const [genreList, setGenreList] = useState([]);
   const [movieList, setMovieList] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -55,14 +56,8 @@ function GenreList({ baseUrl, apiKey, posterPath, backdropPath }) {
       setLoading(true);
       try {
         const url = `${baseUrl}genre/movie/list?api_key=${apiKey}&language=en-US`;
-        const res = await fetch(url);
-        const data = await res.json();
-        if (res.ok) {
-          setGenreList(data.genres);
-          setErrorMessage("");
-        } else {
-          setErrorMessage(data.message);
-        }
+        const data = await fetchData(url);
+        setGenreList(data.genres);
       } catch (error) {
         setErrorMessage(error.message);
       }
@@ -76,22 +71,15 @@ function GenreList({ baseUrl, apiKey, posterPath, backdropPath }) {
       setLoading(true);
       try {
         const url = `${baseUrl}discover/movie?api_key=${apiKey}&language=en-US&with_genres=${genreId}`;
-        const res = await fetch(url);
-        const data = await res.json();
-        if (res.ok) {
-          setMovieList(data.results);
-          setErrorMessage("");
-        } else {
-          setErrorMessage(data.message);
-        }
+        const data = await fetchData(url);
+        setMovieList(data.results);
       } catch (error) {
-        console.log("error", error.message);
+        setErrorMessage(error.message);
       }
       setLoading(false);
     };
     fetchMovieList();
   }, [apiKey, baseUrl, genreId]);
-  // useEffect(() => console.log("movieList", movieList), [movieList]);
 
   return (
     <Box sx={{ width: "100vw", pl: 5, pr: 5 }}>

@@ -11,7 +11,7 @@ function MovieTrailer({ movieTrailer }) {
 
   return (
     <>
-      {movieTrailer && movieTrailer !== null ? (
+      {movieTrailer && movieTrailer !== null && movieTrailer.length > 0 ? (
         <Box
           sx={{
             width: "100%",

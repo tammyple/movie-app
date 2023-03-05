@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import LoadingScreen from "../components/LoadingScreen";
-import { Alert, Box, Typography } from "@mui/material";
+import { Alert, Box } from "@mui/material";
 import MovieDetailCard from "../components/MovieDetailCard";
 import MovieTrailer from "../components/MovieTrailer";
+import { fetchData } from "../api/getApi";
 
 function DetailPage() {
   const [movieDetail, setMovieDetail] = useState(null);
@@ -19,23 +20,31 @@ function DetailPage() {
   const posterPath = `https://image.tmdb.org/t/p/original`;
 
   useEffect(() => {
+    if (movieDetail && similarMovies && movieTrailer) {
+      setLoading(false);
+    } else {
+      if (
+        movieDetail === null &&
+        similarMovies === null &&
+        movieTrailer === null
+      ) {
+        setErrorMessage("No Movie Found");
+      } else {
+        setLoading(true);
+      }
+    }
+  }, [movieDetail, similarMovies, movieTrailer]);
+
+  useEffect(() => {
     const fetchMovieDetail = async () => {
       if (params.id) {
-        setLoading(true);
         try {
           const url = `${baseUrl}movie/${params.id}?api_key=${apiKey}`;
-          const res = await fetch(url);
-          const data = await res.json();
-          if (res.ok) {
-            setMovieDetail(data);
-            setErrorMessage("");
-          } else {
-            setErrorMessage(data.message);
-          }
+          const data = await fetchData(url);
+          setMovieDetail(data);
         } catch (error) {
           setErrorMessage(error.message);
         }
-        setLoading(false);
       }
     };
     fetchMovieDetail();
@@ -44,21 +53,13 @@ function DetailPage() {
   useEffect(() => {
     const fetchSimilarMovies = async () => {
       if (params.id) {
-        setLoading(true);
         try {
           const url = `${baseUrl}movie/${params.id}/similar?api_key=${apiKey}`;
-          const res = await fetch(url);
-          const data = await res.json();
-          if (res.ok) {
-            setSimilarMovies(data.results);
-            setErrorMessage("");
-          } else {
-            setErrorMessage(data.message);
-          }
+          const data = await fetchData(url);
+          setSimilarMovies(data.results);
         } catch (error) {
           setErrorMessage(error.message);
         }
-        setLoading(false);
       }
     };
     fetchSimilarMovies();
@@ -66,25 +67,18 @@ function DetailPage() {
 
   useEffect(() => {
     const fetchMovieTrailer = async () => {
-      setLoading(true);
-      try {
-        const url = `${baseUrl}movie/${params.id}/videos?api_key=${apiKey}&language=en-US&append_to_response=videos`;
-        const res = await fetch(url);
-        const data = await res.json();
-        if (res.ok) {
-          console.log(JSON.stringify(data));
+      if (params.id) {
+        try {
+          const url = `${baseUrl}movie/${params.id}/videos?api_key=${apiKey}&language=en-US&append_to_response=videos`;
+          const data = await fetchData(url);
           setMovieTrailer(data.results);
-          setErrorMessage("");
-        } else {
-          setErrorMessage(data.message);
+        } catch (error) {
+          setErrorMessage(error.message);
         }
-      } catch (error) {
-        setErrorMessage(error.message);
       }
-      setLoading(false);
     };
     fetchMovieTrailer();
-  }, [baseUrl, apiKey, params.id]);
+  }, [params.id, apiKey, baseUrl]);
 
   return (
     <>
@@ -96,22 +90,18 @@ function DetailPage() {
             <Alert severity="error">{errorMessage}</Alert>
           ) : (
             <>
-              {movieDetail && similarMovies ? (
-                <Box width="100%">
-                  {movieTrailer &&
-                  movieTrailer !== null &&
-                  movieTrailer.length > 0 ? (
-                    <MovieTrailer movieTrailer={movieTrailer} />
-                  ) : null}
-                  <MovieDetailCard
-                    movieDetail={movieDetail}
-                    similarMovies={similarMovies}
-                    posterPath={posterPath}
-                  />
-                </Box>
-              ) : (
-                <Typography variant="h6">404 Movie Not Found</Typography>
-              )}
+              <Box width="100%">
+                {movieTrailer &&
+                movieTrailer !== null &&
+                movieTrailer.length > 0 ? (
+                  <MovieTrailer movieTrailer={movieTrailer} />
+                ) : null}
+                <MovieDetailCard
+                  movieDetail={movieDetail}
+                  similarMovies={similarMovies}
+                  posterPath={posterPath}
+                />
+              </Box>
             </>
           )}
         </>

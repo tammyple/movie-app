@@ -4,6 +4,7 @@ import GenreList from "../components/GenreList";
 import { Typography } from "@mui/material";
 import LoadingScreen from "../components/LoadingScreen";
 import MovieTrendingList from "../components/MovieTrendingList";
+import { fetchData } from "../api/getApi";
 
 function HomePage() {
   const [trendingMovies, setTrendingMovies] = useState([]);
@@ -14,19 +15,14 @@ function HomePage() {
   const baseUrl = `https://api.themoviedb.org/3/`;
   const posterPath = `https://image.tmdb.org/t/p/original`;
 
+  // fix useEffect , make shorter?
   useEffect(() => {
     const fetchTrendingMovies = async () => {
       setLoading(true);
       try {
         const url = `${baseUrl}/trending/all/day?api_key=${apiKey}`;
-        const res = await fetch(url);
-        const data = await res.json();
-        if (res.ok) {
-          setTrendingMovies(data.results);
-          setErrorMessage("");
-        } else {
-          setErrorMessage(data.message);
-        }
+        const data = await fetchData(url);
+        setTrendingMovies(data.results);
       } catch (error) {
         setErrorMessage(error.message);
       }
@@ -94,8 +90,8 @@ function HomePage() {
           </Grid>
           <Grid item mt={5}>
             <GenreList
-              baseUrl={baseUrl}
               apiKey={apiKey}
+              baseUrl={baseUrl}
               posterPath={posterPath}
             />
           </Grid>

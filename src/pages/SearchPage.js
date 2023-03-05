@@ -3,10 +3,10 @@ import { useParams } from "react-router-dom";
 import MovieCard from "../components/MovieCard";
 import { Typography, Grid } from "@mui/material";
 import LoadingScreen from "../components/LoadingScreen";
+import { fetchData } from "../api/getApi";
 
 function SearchPage() {
   const [searchMovies, setSearchMovies] = useState([]);
-  // const [searchValue, setSearchValue] = useState("");
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -21,21 +21,16 @@ function SearchPage() {
     const fetchSearchMovies = async () => {
       try {
         const url = `${baseUrl}search/movie?api_key=${apiKey}&query=${query}`;
-        const res = await fetch(url);
-        const data = await res.json();
-        if (res.ok) {
-          setSearchMovies(data.results);
-          setErrorMessage("");
-        } else {
-          setErrorMessage(data.message);
-        }
+        const data = await fetchData(url);
+        setSearchMovies(data.results);
       } catch (error) {
-        console.log("error", error.message);
+        setErrorMessage(error.message);
       }
       setLoading(false);
     };
     fetchSearchMovies();
   }, [apiKey, baseUrl, query]);
+
   return (
     <main
       style={{

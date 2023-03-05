@@ -193,6 +193,7 @@ export default function MovieDetailCard({
               </CardContent>
             </Stack>
           </Card>
+
           {/* Similar Movies */}
           <Box
             sx={{
