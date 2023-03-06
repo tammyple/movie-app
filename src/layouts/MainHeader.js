@@ -13,21 +13,34 @@ import SearchIcon from "@mui/icons-material/Search";
 import LoadingScreen from "../components/LoadingScreen";
 import LiveTvIcon from "@mui/icons-material/LiveTv";
 import { Avatar } from "@mui/material";
-
 import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
+import MenuItem from "@mui/material/MenuItem";
+import Menu from "@mui/material/Menu";
 
-export default function MainHeader() {
+export default function TestMainHeader({ pages }) {
   const [searchMovies, setSearchMovies] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [anchorElNav, setAnchorElNav] = React.useState(null);
 
   const apiKey = `681565f353a3b4d3df92168a51105ce9`;
   const baseUrl = `https://api.themoviedb.org/3/`;
 
   const auth = useAuth();
   let navigate = useNavigate();
+
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
+  };
+
+  const handleCloseNavMenu = (path) => {
+    setAnchorElNav(null);
+    if (path) {
+      navigate(path);
+    }
+  };
 
   useEffect(() => {
     setLoading(true);
@@ -68,49 +81,22 @@ export default function MainHeader() {
               backgroundColor: "transparent",
             }}
           />
-          <Button
-            onClick={() => {
-              navigate("/");
-            }}
-            variant="h6"
-            component="div"
-            sx={{
-              wrap: "noWrap",
-              display: { xs: "none", sm: "flex" },
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            Home
-          </Button>
-
-          <Button
-            variant="h6"
-            component="div"
-            sx={{
-              wrap: "noWrap",
-              display: { xs: "none", sm: "flex" },
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-            onClick={() => navigate(`/discover/movies/1`)}
-          >
-            Movies
-          </Button>
-          <Button
-            variant="h6"
-            component="div"
-            sx={{
-              wrap: "noWrap",
-              display: { xs: "none", sm: "flex" },
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-            onClick={() => navigate(`/discover/tv/1`)}
-          >
-            TV
-          </Button>
-
+          <Box sx={{ flexGrow: 1, display: { xs: "none", sm: "flex" } }}>
+            {pages.map((page) => (
+              <Button
+                onClick={() => navigate(`${page.path}`)}
+                variant="h6"
+                component="div"
+                sx={{
+                  wrap: "noWrap",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                {page.label}
+              </Button>
+            ))}
+          </Box>
           <Paper
             component="form"
             onSubmit={handleSubmit}
@@ -183,23 +169,53 @@ export default function MainHeader() {
             Sign Out
           </Button>
 
-          <Box
-            edge="end"
-            sx={{
-              m: 0,
-              flexGrow: 0,
-              display: { xs: "flex", md: "none" },
-            }}
-          >
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
+              onClick={handleOpenNavMenu}
               color="inherit"
             >
               <MoreVertIcon />
             </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorElNav}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "left",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "left",
+              }}
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
+              sx={{
+                display: { xs: "block", md: "none" },
+              }}
+            >
+              {pages?.map((page) => (
+                <MenuItem
+                  key={page.label}
+                  onClick={() => handleCloseNavMenu(page.path)}
+                >
+                  <Typography textAlign="center">{page.label}</Typography>
+                </MenuItem>
+              ))}
+
+              <MenuItem
+                key={"logout"}
+                onClick={() => {
+                  auth.logout(() => navigate("/"));
+                }}
+              >
+                <Typography textAlign="center">Logout</Typography>
+              </MenuItem>
+            </Menu>
           </Box>
         </Toolbar>
       </AppBar>

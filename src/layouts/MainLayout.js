@@ -5,7 +5,13 @@ import MainHeader from "./MainHeader";
 function MainLayout() {
   return (
     <Stack sx={{ minHeight: "100vh" }}>
-      <MainHeader />
+      <MainHeader
+        pages={[
+          { label: "Home", path: "/" },
+          { label: "Movies", path: "/discover/movies/1" },
+          { label: "TV", path: "/discover/tv/1" },
+        ]}
+      />
 
       <Outlet />
 
