@@ -23,7 +23,7 @@ export default function TestMainHeader({ pages }) {
   const [searchValue, setSearchValue] = useState("");
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [anchorElNav, setAnchorElNav] = useState(null);
 
   const apiKey = `681565f353a3b4d3df92168a51105ce9`;
   const baseUrl = `https://api.themoviedb.org/3/`;
@@ -75,10 +75,12 @@ export default function TestMainHeader({ pages }) {
       <AppBar position="static">
         <Toolbar>
           <LiveTvIcon
+            onClick={() => navigate("/")}
             sx={{
               width: "100px",
               height: "30px",
               backgroundColor: "transparent",
+              cursor: "pointer",
             }}
           />
           <Box sx={{ flexGrow: 1, display: { xs: "none", sm: "flex" } }}>
