@@ -15,16 +15,15 @@ function HomePage() {
   const baseUrl = `https://api.themoviedb.org/3/`;
   const posterPath = `https://image.tmdb.org/t/p/original`;
 
-  // fix useEffect , make shorter?
   useEffect(() => {
     const fetchTrendingMovies = async () => {
       setLoading(true);
-      try {
-        const url = `${baseUrl}/trending/all/day?api_key=${apiKey}`;
-        const data = await fetchData(url);
+      const url = `${baseUrl}/trending/all/day?api_key=${apiKey}`;
+      const data = await fetchData(url);
+      if (data !== "Fetching is not available") {
         setTrendingMovies(data.results);
-      } catch (error) {
-        setErrorMessage(error.message);
+      } else {
+        setErrorMessage();
       }
       setLoading(false);
     };
