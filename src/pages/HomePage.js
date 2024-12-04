@@ -18,7 +18,7 @@ function HomePage() {
   useEffect(() => {
     const fetchTrendingMovies = async () => {
       setLoading(true);
-      const url = `${baseUrl}/trending/all/day?api_key=${apiKey}`;
+      const url = `${baseUrl}trending/all/day?api_key=${apiKey}`;
       const data = await fetchData(url);
       if (data !== "Fetching is not available") {
         setTrendingMovies(data.results);
