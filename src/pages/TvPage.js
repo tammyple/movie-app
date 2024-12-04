@@ -19,7 +19,7 @@ function TvPage() {
     const fetchDiscoverTv = async () => {
       setLoading(true);
       try {
-        const url = `${baseUrl}/discover/tv?api_key=${apiKey}&language=en-US&page=${pageId}`;
+        const url = `${baseUrl}discover/tv?api_key=${apiKey}&language=en-US&page=${pageId}`;
         const data = await fetchData(url);
         setDiscoverTv(data.results);
       } catch (error) {

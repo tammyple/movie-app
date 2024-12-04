@@ -19,7 +19,7 @@ function MoviePage() {
     const fetchDiscoverMovies = async () => {
       setLoading(true);
       try {
-        const url = `${baseUrl}/discover/movie?api_key=${apiKey}&language=en-US&page=${pageId}`;
+        const url = `${baseUrl}discover/movie?api_key=${apiKey}&language=en-US&page=${pageId}`;
         const data = await fetchData(url);
         setDiscoverMovies(data.results);
       } catch (error) {
